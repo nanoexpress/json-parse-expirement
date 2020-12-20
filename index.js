@@ -2,60 +2,73 @@ const simdJson = require("simdjson");
 const FastJson = require("fast-json");
 const TurboJSON = require("turbo-json-parse");
 
+const Data = require("./data");
+const TurboCompile = TurboJSON(Data.JSONSchema);
+
+const table = [];
+
 const bench = (name, fn) => {
-  console.time(name);
+  const startTime = Date.now();
   for (let i = 0; i < 200000; i++) {
     fn();
   }
-  console.timeEnd(name);
+  table.push({ name, "time taken": Date.now() - startTime + "ms" });
 };
 
-// Create large JSON file
-let JSON_BUFF_LARGE = {};
-let schema = { type: "object", properties: {} };
-for (let i = 0; i < 40; i++) {
-  // 20 is close to 0.5Kb which very small, but you can increase this value
-  JSON_BUFF_LARGE["key_" + i] = Math.round(Math.random() * 1e16).toString(16);
-  schema.properties["key_" + i] = { type: "string" };
-}
-JSON_BUFF_LARGE = JSON.stringify(JSON_BUFF_LARGE);
-
 console.log(
-  "JSON buffer LARGE size is ",
-  parseFloat(JSON_BUFF_LARGE.length / 1024).toFixed(2),
+  "JSON buffer size",
+  parseFloat(Data.JSONString.length / 1024).toFixed(3),
   "Kb"
 );
 
-bench("json.parse - large", () => JSON.parse(JSON_BUFF_LARGE));
-bench("simdjson - large", () => simdJson.parse(JSON_BUFF_LARGE));
-
-const schemaKeys = Object.keys(schema.properties);
-bench("simdjson - lazyParse", () => {
-  const lazyParse = simdJson.lazyParse(JSON_BUFF_LARGE);
-  const json = {};
-  for (let i = 0, property, len = schemaKeys.length; i < len; i++) {
-    property = schemaKeys[i];
-    json[property] = lazyParse.valueForKeyPath(property);
-  }
-  return json;
-});
-
-const options = {};
-bench("fast-json stream", () => {
-  const fj = new FastJson(options);
-  const json = {};
-  for (let i = 0, property, len = schemaKeys.length; i < len; i++) {
-    property = schemaKeys[i];
-    fj.on(property, function addToJson(value) {
-      json[property] = value;
-      fj._events.off(property, addToJson);
+const run = () =>
+  new Promise((resolve) => {
+    bench("JSON.parse", () => JSON.parse(Data.JSONString));
+    bench("simdJson.parse", () => simdJson.parse(Data.JSONString));
+    bench("simdJson.lazyParse", () => {
+      const lazyParse = simdJson.lazyParse(Data.JSONString);
+      const json = {};
+      for (
+        let i = 0, property, len = Data.JSONSchemaKeys.length;
+        i < len;
+        i++
+      ) {
+        property = Data.JSONSchemaKeys[i];
+        json[property] = lazyParse.valueForKeyPath(property);
+      }
+      return json;
     });
-  }
-  fj.write(JSON_BUFF_LARGE);
-  return json;
-});
 
-const _schema = TurboJSON(schema);
-bench("turbo-json?", () => {
-  return _schema(JSON_BUFF_LARGE);
-});
+    const options = {};
+    bench("fast-json", () => {
+      const fj = new FastJson(options);
+      const json = {};
+      for (
+        let i = 0, property, len = Data.JSONSchemaKeys.length;
+        i < len;
+        i++
+      ) {
+        property = Data.JSONSchemaKeys[i];
+        fj.on(property, function addToJson(value) {
+          json[property] = value;
+          fj._events.off(property, addToJson);
+        });
+      }
+      fj.write(Data.JSONString);
+      return json;
+    });
+
+    bench("@dalisoft/turbo-json-parse", () => TurboCompile(Data.JSONString));
+
+    resolve();
+  });
+
+async function main() {
+  console.log("Benchmark started...");
+  await run();
+  console.log("Benchmark done");
+
+  console.table(table);
+}
+
+main();
