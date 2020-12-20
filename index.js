@@ -24,6 +24,7 @@ console.log(
 const run = () =>
   new Promise((resolve) => {
     bench("JSON.parse", () => JSON.parse(Data.JSONString));
+    bench("@dalisoft/turbo-json-parse", () => TurboCompile(Data.JSONString));
     bench("simdJson.parse", () => simdJson.parse(Data.JSONString));
     bench("simdJson.lazyParse", () => {
       const lazyParse = simdJson.lazyParse(Data.JSONString);
@@ -57,8 +58,6 @@ const run = () =>
       fj.write(Data.JSONString);
       return json;
     });
-
-    bench("@dalisoft/turbo-json-parse", () => TurboCompile(Data.JSONString));
 
     resolve();
   });
