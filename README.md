@@ -1,31 +1,48 @@
-# expirements
+# json-parse
 
-## How to Run
+## Installation
 
 ```bash
 yarn
-node index.js
+```
+
+## How to Run
+
+### String
+
+```bash
+yarn string-bench # Parse from String
+```
+
+### Buffer
+
+```bash
+yarn buffer-bench # Parse from String
 ```
 
 ## Results
 
-This result on iMac 5K Late 2014 i7-4790K
+This result on Macbook Pro M1
 
 ```bash
-expirements on  master [✘!?] is 📦 v1.0.0 via ⬢ v15.4.0 took 11s
-❯ node index.js
-JSON buffer size 0.487 Kb
+json-performance on  master [✘!?] is 📦 v1.0.0 via ⬢ v16.1.0 took 4s
+❯ yarn string-bench
+yarn run v1.22.10
+$ node string-parse.js
+JSON buffer size 0.491 Kb
 Benchmark started...
 Benchmark done
 ┌─────────┬──────────────────────────────┬────────────┐
 │ (index) │             name             │ time taken │
 ├─────────┼──────────────────────────────┼────────────┤
-│    0    │         'JSON.parse'         │  '496ms'   │
-│    1    │ '@dalisoft/turbo-json-parse' │  '235ms'   │
-│    2    │       'simdJson.parse'       │  '1815ms'  │
-│    3    │     'simdJson.lazyParse'     │  '4622ms'  │
-│    4    │         'fast-json'          │  '3513ms'  │
+│    0    │         'JSON.parse'         │  '311ms'   │
+│    1    │ '@dalisoft/turbo-json-parse' │  '223ms'   │
+│    2    │            'avsc'            │  '405ms'   │
+│    3    │       'simdJson.parse'       │  '1194ms'  │
+│    4    │     'simdJson.lazyParse'     │  '2386ms'  │
+│    5    │         'fast-json'          │  '2820ms'  │
 └─────────┴──────────────────────────────┴────────────┘
+✨  Done in 8.15s.
 ```
 
 ## License

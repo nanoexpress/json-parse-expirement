@@ -4,11 +4,14 @@
   "main": "index.js",
   "author": "dalisoft <dalisoft@mail.ru>",
   "scripts": {
-    "run": "node --enable-source-maps --trace-deprecation --trace-uncaught --trace-warnings --experimental-specifier-resolution=node --experimental-modules --experimental-json-modules --experimental-wasm-modules index.js"
+    "string-bench": "node string-parse.js",
+    "buffer-bench": "node buffer-parse.js"
   },
   "license": "MIT",
   "dependencies": {
-    "fast-json": "^1.1.0",
+    "avsc": "^5.7.0",
+    "fast-json": "^1.2.0",
+    "msgpackr": "^1.2.10",
     "simdjson": "^0.5.0",
     "turbo-json-parse": "dalisoft/turbo-json-parse"
   }

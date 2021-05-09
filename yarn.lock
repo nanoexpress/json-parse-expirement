@@ -2,10 +2,15 @@
 # yarn lockfile v1
 
 
-fast-json@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/fast-json/-/fast-json-1.1.0.tgz#523d1da88374f0bc18b70cd7a05d86fe261d3fb7"
-  integrity sha1-Uj0dqIN08LwYtwzXoF2G/iYdP7c=
+avsc@^5.7.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/avsc/-/avsc-5.7.0.tgz#a2d85006606bc3388feda054bba09091a2d65b33"
+  integrity sha512-oP3jgI9SaZnwLwkRx7sHDPctXCUGGp+X4FsCgzHpMTNhYhGhXAFinptdGpWid2GTXAkhNp8ksAjqyqQBhoQ7BQ==
+
+fast-json@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/fast-json/-/fast-json-1.2.0.tgz#e83057e19e0c7066ef890b786458513d53e49636"
+  integrity sha512-Db9RTzD+oF7h+I5/dZwtkAUFDhA7RjWsF1SQrTTzXKRZask73VcnwFyQTlG7OxOI1jaVqp2B7tZ81xAOnV3s+Q==
 
 generate-function@^2.3.1:
   version "2.3.1"
@@ -19,10 +24,35 @@ is-property@^1.0.2:
   resolved "https://registry.yarnpkg.com/is-property/-/is-property-1.0.2.tgz#57fe1c4e48474edd65b09911f26b1cd4095dda84"
   integrity sha1-V/4cTkhHTt1lsJkR8msc1Ald2oQ=
 
+msgpackr-extract@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/msgpackr-extract/-/msgpackr-extract-1.0.8.tgz#18f8f854c700db7f1b972fdb51c875efda5a4575"
+  integrity sha512-XjAPEv25aIhXMUM197XJGUA9O7bqvbNU1mEWCiJ30wJEZrmtpI7+Dzl+vHIfdQSL5rucfNFCGuNFfLj1wZHmeg==
+  dependencies:
+    nan "^2.14.2"
+    node-gyp-build "^4.2.3"
+
+msgpackr@^1.2.10:
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/msgpackr/-/msgpackr-1.2.10.tgz#529097de87ffec33c185b323e26b34329c84286b"
+  integrity sha512-3nJdjgF5OdGXHdXRsw7m8fJNX9s0C+PgB+YGA4x2xE+mkPBHCG3PWGQOrud9Mxq4fY9px+40RuXpOC2AxJY+Yw==
+  optionalDependencies:
+    msgpackr-extract "^1.0.8"
+
+nan@^2.14.2:
+  version "2.14.2"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
+  integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
+
 node-addon-api@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-2.0.2.tgz#432cfa82962ce494b132e9d72a15b29f71ff5d32"
   integrity sha512-Ntyt4AIXyaLIuMHF6IOoTakB3K+RWxwtsHNRxllEoA6vPwP9o4866g6YWDLUdnucilZhmkxiHwHr11gAENw+QA==
+
+node-gyp-build@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
+  integrity sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
 
 simdjson@^0.5.0:
   version "0.5.0"
