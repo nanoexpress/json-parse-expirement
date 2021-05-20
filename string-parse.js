@@ -67,7 +67,6 @@ const run = () =>
         property = Data.JSONSchemaKeys[i];
         fj.on(property, function addToJson(value) {
           json[property] = value;
-          fj._events.off(property, addToJson);
         });
       }
       fj.write(Data.JSONString);
